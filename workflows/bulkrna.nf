@@ -17,6 +17,7 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
 
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     CONFIG FILES
@@ -48,8 +49,10 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { FASTQC                      } from '../modules/nf-core/fastqc/main'
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
+include { FASTQC as FASTQC_RAW     } from '../modules/nf-core/fastqc/main'
+include { FASTQC as FASTQC_TRIMMED } from '../modules/nf-core/fastqc/main'
+include { MULTIQC                  } from '../modules/nf-core/multiqc/main'
+include { FASTP                    } from '../modules/nf-core/fastp/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
@@ -71,15 +74,36 @@ workflow BULKRNA {
     INPUT_CHECK (
         ch_input
     )
+    ch_raw_reads = INPUT_CHECK.out.reads
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
     //
-    // MODULE: Run FastQC
+    // MODULE: Run FastQC for raw reads
     //
-    FASTQC (
-        INPUT_CHECK.out.reads
+    FASTQC_RAW (
+        ch_raw_reads
     )
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    ch_versions = ch_versions.mix(FASTQC_RAW.out.versions)
+
+    //
+    // MODULE: Run fastp
+    //
+    FASTP (
+        ch_raw_reads,
+        params.fastp_adapter_fasta,
+        params.fastp_save_trimmed_fail,
+        params.fastp_save_merged
+    )
+    ch_trimmed_reads = FASTP.out.reads
+    ch_versions = ch_versions.mix(FASTP.out.versions.first())
+
+    //
+    // MODULE: Run FastQC for trimmed reads
+    //
+    FASTQC_TRIMMED (
+        ch_trimmed_reads
+    )
+    ch_versions = ch_versions.mix(FASTQC_TRIMMED.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
@@ -98,7 +122,8 @@ workflow BULKRNA {
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(FASTQC_TRIMMED.out.zip.collect{it[1]}.ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(FASTP.out.json.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect(),
