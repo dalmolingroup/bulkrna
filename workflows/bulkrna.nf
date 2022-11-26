@@ -39,6 +39,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { INPUT_CHECK } from '../subworkflows/local/input_check'
+include { QUANTIFICATION } from '../subworkflows/local/quantification'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -96,6 +97,11 @@ workflow BULKRNA {
     )
     ch_trimmed_reads = FASTP.out.reads
     ch_versions = ch_versions.mix(FASTP.out.versions.first())
+
+    QUANTIFICATION (
+        params.transcriptome
+    )
+    ch_versions = ch_versions.mix(QUANTIFICATION.out.versions)
 
     //
     // MODULE: Run FastQC for trimmed reads
