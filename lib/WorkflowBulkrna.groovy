@@ -9,9 +9,7 @@ class WorkflowBulkrna {
     //
     // Check and validate parameters
     //
-    public static void initialise(params, log) {
-        
-    }
+    public static void initialise(params, log) {}
 
     //
     // Get workflow summary for MultiQC

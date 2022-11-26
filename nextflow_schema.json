@@ -57,11 +57,11 @@
                     "default": "https://gist.githubusercontent.com/jvfe/2d569adf47791b9d1e1b4ff810d410b8/raw/e970485d7fe2c9a5b501966eb26e9eb51789c86d/sample_adapters.fa"
                 },
                 "fastp_save_trimmed_fail": {
-                    "type": "string",
+                    "type": "boolean",
                     "default": "false"
                 },
                 "fastp_save_merged": {
-                    "type": "string",
+                    "type": "boolean",
                     "default": "false"
                 },
                 "fastp_qualified_quality": {
@@ -264,6 +264,9 @@
     "allOf": [
         {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/fastp_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"
