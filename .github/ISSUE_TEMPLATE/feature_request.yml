@@ -1,5 +1,5 @@
 name: Feature request
-description: Suggest an idea for the dalmolingroup/bulkrna pipeline
+description: Suggest an idea for the nf-core/dalmolingroup-bulkrna pipeline
 labels: enhancement
 body:
   - type: textarea

@@ -1,10 +1,10 @@
 //
-// This file holds several functions specific to the workflow/bulkrna.nf in the dalmolingroup/bulkrna pipeline
+// This file holds several functions specific to the workflow/dalmolingroup-bulkrna.nf in the nf-core/dalmolingroup-bulkrna pipeline
 //
 
 import groovy.text.SimpleTemplateEngine
 
-class WorkflowBulkrna {
+class WorkflowDalmolingroup-bulkrna {
 
     //
     // Check and validate parameters

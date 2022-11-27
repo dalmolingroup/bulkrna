@@ -17,7 +17,7 @@
                         "size": "Large",
                         "weight": "Bolder",
                         "color": "<% if (success) { %>Good<% } else { %>Attention<%} %>",
-                        "text": "dalmolingroup/bulkrna v${version} - ${runName}",
+                        "text": "nf-core/dalmolingroup-bulkrna v${version} - ${runName}",
                         "wrap": true
                     },
                     {

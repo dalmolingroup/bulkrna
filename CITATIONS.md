@@ -1,4 +1,4 @@
-# dalmolingroup/bulkrna: Citations
+# nf-core/dalmolingroup-bulkrna: Citations
 
 ## [nf-core](https://pubmed.ncbi.nlm.nih.gov/32055031/)
 

@@ -1,9 +1,12 @@
 #!/usr/bin/env nextflow
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    dalmolingroup/bulkrna
+    nf-core/dalmolingroup-bulkrna
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/dalmolingroup/bulkrna
+    Github : https://github.com/nf-core/dalmolingroup-bulkrna
+
+    Website: https://nf-co.re/dalmolingroup-bulkrna
+    Slack  : https://nfcore.slack.com/channels/dalmolingroup-bulkrna
 ----------------------------------------------------------------------------------------
 */
 
@@ -31,13 +34,13 @@ WorkflowMain.initialise(workflow, params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { BULKRNA } from './workflows/bulkrna'
+include { DALMOLINGROUP-BULKRNA } from './workflows/dalmolingroup-bulkrna'
 
 //
-// WORKFLOW: Run main dalmolingroup/bulkrna analysis pipeline
+// WORKFLOW: Run main nf-core/dalmolingroup-bulkrna analysis pipeline
 //
-workflow DALMOLINGROUP_BULKRNA {
-    BULKRNA ()
+workflow NFCORE_DALMOLINGROUP-BULKRNA {
+    DALMOLINGROUP-BULKRNA ()
 }
 
 /*
@@ -51,7 +54,7 @@ workflow DALMOLINGROUP_BULKRNA {
 // See: https://github.com/nf-core/rnaseq/issues/619
 //
 workflow {
-    DALMOLINGROUP_BULKRNA ()
+    NFCORE_DALMOLINGROUP-BULKRNA ()
 }
 
 /*

@@ -1,6 +1,6 @@
 {
-    "name": "dalmolingroup/bulkrna",
-    "homePage": "https://github.com/dalmolingroup/bulkrna",
+    "name": "nf-core/dalmolingroup-bulkrna",
+    "homePage": "https://github.com/nf-core/dalmolingroup-bulkrna",
     "repos": {
         "https://github.com/nf-core/modules.git": {
             "modules": {

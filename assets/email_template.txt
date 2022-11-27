@@ -1,10 +1,18 @@
+----------------------------------------------------
+                                        ,--./,-.
+        ___     __   __   __   ___     /,-._.--~\\
+  |\\ | |__  __ /  ` /  \\ |__) |__         }  {
+  | \\| |       \\__, \\__/ |  \\ |___     \\`-._,-`-,
+                                        `._,._,'
+  nf-core/dalmolingroup-bulkrna v${version}
+----------------------------------------------------
 Run Name: $runName
 
 <% if (success){
-    out << "## dalmolingroup/bulkrna execution completed successfully! ##"
+    out << "## nf-core/dalmolingroup-bulkrna execution completed successfully! ##"
 } else {
     out << """####################################################
-## dalmolingroup/bulkrna execution completed unsuccessfully! ##
+## nf-core/dalmolingroup-bulkrna execution completed unsuccessfully! ##
 ####################################################
 The exit status of the task that caused the workflow execution to fail was: $exitStatus.
 The full error message was:
@@ -27,5 +35,5 @@ Pipeline Configuration:
 <% out << summary.collect{ k,v -> " - $k: $v" }.join("\n") %>
 
 --
-dalmolingroup/bulkrna
-https://github.com/dalmolingroup/bulkrna
+nf-core/dalmolingroup-bulkrna
+https://github.com/nf-core/dalmolingroup-bulkrna

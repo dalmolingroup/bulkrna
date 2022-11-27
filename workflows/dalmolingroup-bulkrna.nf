@@ -7,7 +7,7 @@
 def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 
 // Validate input parameters
-WorkflowBulkrna.initialise(params, log)
+WorkflowDalmolingroup-bulkrna.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
@@ -61,7 +61,7 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoft
 // Info required for completion email and summary
 def multiqc_report = []
 
-workflow BULKRNA {
+workflow DALMOLINGROUP-BULKRNA {
 
     ch_versions = Channel.empty()
 
@@ -88,10 +88,10 @@ workflow BULKRNA {
     //
     // MODULE: MultiQC
     //
-    workflow_summary    = WorkflowBulkrna.paramsSummaryMultiqc(workflow, summary_params)
+    workflow_summary    = WorkflowDalmolingroup-bulkrna.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
-    methods_description    = WorkflowBulkrna.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description)
+    methods_description    = WorkflowDalmolingroup-bulkrna.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description)
     ch_methods_description = Channel.value(methods_description)
 
     ch_multiqc_files = Channel.empty()

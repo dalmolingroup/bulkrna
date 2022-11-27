@@ -1,4 +1,4 @@
-# dalmolingroup/bulkrna: Output
+# nf-core/dalmolingroup-bulkrna: Output
 
 ## Introduction
 

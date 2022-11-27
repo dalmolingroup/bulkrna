@@ -1,5 +1,5 @@
 //
-// This file holds several functions specific to the main.nf workflow in the dalmolingroup/bulkrna pipeline
+// This file holds several functions specific to the main.nf workflow in the nf-core/dalmolingroup-bulkrna pipeline
 //
 
 class WorkflowMain {
