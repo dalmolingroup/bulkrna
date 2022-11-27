@@ -1,5 +1,7 @@
 repository_type: pipeline
 lint:
+  pipeline_todos: false
+  files_unchanged: false
   files_exist:
     - CODE_OF_CONDUCT.md
     - assets/nf-core-bulkrna_logo_light.png
