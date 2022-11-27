@@ -1,0 +1,48 @@
+name: kallisto_quant
+description: runs the kallisto quantification algorithm
+  - quant
+tools:
+  - kallisto:
+      description: Quantifying abundances of transcripts from bulk and single-cell RNA-Seq data, or more generally of target sequences using high-throughput sequencing reads.
+      homepage: https://pachterlab.github.io/kallisto/
+      documentation: https://pachterlab.github.io/kallisto/manual
+      tool_dev_url: https://github.com/pachterlab/kallisto
+      doi: "10.1038/nbt.3519"
+      licence: ["BSD-2-Clause"]
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: FASTQ file
+      pattern: "*.{fastq}"
+  - reference:
+      type: directory
+      description: Path to kallisto index
+      pattern: "*"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - log:
+      type: file
+      description: kallisto log file
+      pattern: "*.log"
+  - results:
+      type: directory
+      description: Folder containing the quantification results for a specific sample
+      pattern: "${prefix}"
+
+authors:
+  - "@jvfe"

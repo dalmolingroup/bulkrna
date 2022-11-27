@@ -99,9 +99,12 @@ workflow BULKRNA {
     ch_versions = ch_versions.mix(FASTP.out.versions.first())
 
     QUANTIFICATION (
-        params.transcriptome
+        ch_trimmed_reads,
+        params.transcriptome,
+        params.fragment_length,
+        params.fragment_length_sd
     )
-    ch_versions = ch_versions.mix(QUANTIFICATION.out.versions)
+    ch_versions = ch_versions.mix(QUANTIFICATION.out.versions.first())
 
     //
     // MODULE: Run FastQC for trimmed reads
@@ -130,6 +133,7 @@ workflow BULKRNA {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC_TRIMMED.out.zip.collect{it[1]}.ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(FASTP.out.json.collect{it[1]}.ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(QUANTIFICATION.out.logs.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect(),
