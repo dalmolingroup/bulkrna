@@ -10,6 +10,7 @@ lint:
     - .github/ISSUE_TEMPLATE/config.yml
     - .github/workflows/awstest.yml
     - .github/workflows/awsfulltest.yml
+    - conf/test_full.config
   nextflow_config:
     - manifest.name
     - manifest.homePage
