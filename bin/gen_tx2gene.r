@@ -1,12 +1,16 @@
+#!/usr/bin/env Rscript
+
 library(GenomicFeatures)
 library(AnnotationDbi)
 
 args <- commandArgs(trailingOnly = TRUE)
-if (length(args) < 1) {
-    stop("Usage: gen_tax2gene.r <gtf_file>", call. = FALSE)
+if (length(args) < 2) {
+    stop("Usage: gen_tax2gene.r <gtf_file> <output_name>", call. = FALSE)
 }
 
 gtf_file <- args[1]
+
+output_name <- args[2]
 
 txdb_filename <- "gtf.sqlite"
 
@@ -27,4 +31,4 @@ tx2gene <- data.frame(
     gene = txdf$GENEID
 )
 
-saveRDS(tx2gene, file = "tx2gene.rds")
+saveRDS(tx2gene, file = output_name)

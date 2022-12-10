@@ -101,10 +101,12 @@ workflow BULKRNA {
     QUANTIFICATION (
         ch_trimmed_reads,
         params.transcriptome,
+        params.gtf,
         params.fragment_length,
         params.fragment_length_sd
     )
-    ch_versions = ch_versions.mix(QUANTIFICATION.out.versions.first())
+    ch_versions = ch_versions.mix(QUANTIFICATION.out.kallisto_versions.first())
+    ch_versions = ch_versions.mix(QUANTIFICATION.out.tximport_versions)
 
     //
     // MODULE: Run FastQC for trimmed reads
