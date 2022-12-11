@@ -14,7 +14,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. Read trimming ([`fastp`](https://github.com/OpenGene/fastp))
 3. Alignment and quantification ([`kallisto`](https://pachterlab.github.io/kallisto/manual))
-4. Present QC for trimmed reads and alignment ([`MultiQC`](http://multiqc.info/))
+4. Import quantifications into a count matrix, at gene and transcript level([`tximport`](http://bioconductor.org/packages/release/bioc/html/tximport.html))
+5. Present QC for trimmed reads and alignment ([`MultiQC`](http://multiqc.info/))
 
 ## Quick Start
 
@@ -26,6 +27,12 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 
    ```bash
    nextflow run dalmolingroup/bulkrna -profile test,YOURPROFILE --outdir <OUTDIR>
+   ```
+
+   For example, run the test with Docker:
+
+   ```bash
+   nextflow run dalmolingroup/bulkrna -profile test,docker --outdir bulkrna_results
    ```
 
    Note that some form of configuration will be needed so that Nextflow knows how to fetch the required software. This is usually done in the form of a config profile (`YOURPROFILE` in the example command above). You can chain multiple config profiles in a comma-separated string.
@@ -40,7 +47,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
    <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
    ```bash
-   nextflow run dalmolingroup/bulkrna --input samplesheet.csv --outdir <OUTDIR> --transcriptome <PATH TO TRANSCRIPTOME FASTA> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
+   nextflow run dalmolingroup/bulkrna --input samplesheet.csv --outdir <OUTDIR> --transcriptome <PATH TO TRANSCRIPTOME FASTA> --gtf <PATH TO GTF FILE> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
    ```
 
 ## Credits

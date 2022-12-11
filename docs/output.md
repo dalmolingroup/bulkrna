@@ -14,6 +14,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [fastp](#fastp) - fastp reports (in HTML and JSON) about the trimming process
 - [FastQC_trimmed](#fastqc) - Trimmed read QC - will be included in MultiQC results
 - [Kallisto](#kallisto) - Kallisto quantification results
+- [TxImport](#tximport) - Aggregate quantification results at gene and transcript levels
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -52,12 +53,21 @@ removal.
 [`kallisto`](https://pachterlab.github.io/kallisto/manual) is used here
 for aligning and quantifying targets against a reference transcriptome.
 
-- `kallisto_index`
-
-  - `kallisto` - Index generated from the reference transcriptome
-
 - `kallisto`
   - `{sample_id}` - Abundances quantified from said sample
+
+### TxImport
+
+[`tximport`](http://bioconductor.org/packages/release/bioc/html/tximport.html) is used here
+to summarize transcript and gene-level counts from Kallisto.
+
+- `tximport`
+  - `gene_tpm.tsv` - Gene-level estimates (transcript-per-million) for the samples
+  - `gene_counts.tsv` - Gene-level estimates (raw counts) for the samples
+  - `transcript_tpm.tsv` - Transcript-level estimates (transcript-per-million) for the samples
+  - `transcript_counts.tsv` - Transcript-level estimates (raw counts) for the samples
+  - `transcript_scaled_tpm.tsv` - Transcript-level estimates (transcript-per-million) for the samples, scaled up to library size (scaledTPM)
+  - `transcript_scaled_counts.tsv` - Transcript-level estimates (raw counts) for the samples, scaled up to library size (scaledTPM)
 
 ### MultiQC
 

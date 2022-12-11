@@ -53,7 +53,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run dalmolingroup/bulkrna --input samplesheet.csv --outdir <OUTDIR> -profile docker
+nextflow run dalmolingroup/bulkrna --input samplesheet.csv --outdir <OUTDIR> --transcriptome <PATH TO TRANSCRIPTOME FASTA> --gtf <PATH TO GTF FILE> -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
