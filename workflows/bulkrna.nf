@@ -86,9 +86,6 @@ workflow BULKRNA {
     )
     ch_versions = ch_versions.mix(FASTQC_RAW.out.versions)
 
-    //
-    // MODULE: Run fastp
-    //
     FASTP (
         ch_raw_reads,
         params.fastp_adapter_fasta,
@@ -105,8 +102,7 @@ workflow BULKRNA {
         params.fragment_length,
         params.fragment_length_sd
     )
-    ch_versions = ch_versions.mix(QUANTIFICATION.out.kallisto_versions.first())
-    ch_versions = ch_versions.mix(QUANTIFICATION.out.tximport_versions)
+    ch_versions = ch_versions.mix(QUANTIFICATION.out.versions)
 
     //
     // MODULE: Run FastQC for trimmed reads
