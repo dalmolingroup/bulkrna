@@ -40,9 +40,9 @@ txi_tx_scaled <- tximport(
     dropInfReps=TRUE
 )
 
-write.table(txi_gene$abundance,  file="gene_tpm.tsv", sep="\t", quote=FALSE, row.names = FALSE)
-write.table(txi_gene$counts,  file="gene_counts.tsv", sep="\t", quote=FALSE, row.names = FALSE)
-write.table(txi_tx$abundance,  file="transcript_tpm.tsv", sep="\t", quote=FALSE, row.names = FALSE)
-write.table(txi_tx$counts,  file="transcript_counts.tsv", sep="\t", quote=FALSE, row.names = FALSE)
-write.table(txi_tx_scaled$abundance,  file="transcript_scaled_tpm.tsv", sep="\t", quote=FALSE, row.names = FALSE)
-write.table(txi_tx_scaled$counts,  file="transcript_scaled_counts.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+write.table(txi_gene$abundance,  file="gene_tpm.tsv", sep="\t", quote=FALSE)
+write.table(txi_gene$counts,  file="gene_counts.tsv", sep="\t", quote=FALSE)
+write.table(txi_tx$abundance,  file="transcript_tpm.tsv", sep="\t", quote=FALSE)
+write.table(txi_tx$counts,  file="transcript_counts.tsv", sep="\t", quote=FALSE)
+write.table(txi_tx_scaled$abundance,  file="transcript_scaled_tpm.tsv", sep="\t", quote=FALSE)
+write.table(txi_tx_scaled$counts,  file="transcript_scaled_counts.tsv", sep="\t", quote=FALSE)
