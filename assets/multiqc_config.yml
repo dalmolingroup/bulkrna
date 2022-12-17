@@ -10,3 +10,18 @@ report_section_order:
     order: -1002
 
 export_plots: true
+
+data_format: "yaml"
+
+top_modules:
+  - "fastqc":
+      name: "FastQC: raw reads"
+      path_filters_exclude:
+        - "*trimmed*"
+  - "fastp"
+  - "fastqc":
+      name: "FastQC: after preprocessing"
+      info: "After trimming and adapter removal."
+      path_filters:
+        - "*trimmed*"
+  - "kallisto"
