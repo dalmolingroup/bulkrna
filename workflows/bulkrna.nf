@@ -85,7 +85,7 @@ workflow BULKRNA {
     // Kallisto files
     ch_transcriptome = params.transcriptome ? file(params.transcriptome) : null
     ch_index = params.index ? file(params.index) : null
-    ch_gtf = params.gtf ? file(params.transcriptome) : null
+    ch_gtf = params.gtf ? file(params.gtf) : null
 
     //
     // MODULE: Run FastQC for raw reads
