@@ -79,6 +79,11 @@ workflow BULKRNA {
     ch_raw_reads = INPUT_CHECK.out.reads
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
+    // Kallisto files
+    ch_transcriptome = params.transcriptome ?: file(params.transcriptome)
+    ch_index = params.index ?: file(params.index)
+    ch_gtf = params.gtf ?: file(params.transcriptome)
+
     //
     // MODULE: Run FastQC for raw reads
     //
@@ -98,9 +103,9 @@ workflow BULKRNA {
 
     QUANTIFICATION (
         ch_trimmed_reads,
-        params.transcriptome,
-        file(params.index),
-        params.gtf,
+        ch_transcriptome,
+        ch_index,
+        ch_gtf,
         params.fragment_length,
         params.fragment_length_sd
     )
