@@ -11,11 +11,12 @@ WorkflowBulkrna.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.fastp_adapter_fasta, params.transcriptome ]
+def checkPathParamList = [ params.input, params.multiqc_config, params.fastp_adapter_fasta, params.transcriptome, params.index ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
+if (params.transcriptome == null && params.index == null) { exit 1, 'You must specify either a transcriptome fasta (--transcriptome) or a pre-built Kallisto index (--index)' }
 
 
 /*
@@ -78,6 +79,14 @@ workflow BULKRNA {
     ch_raw_reads = INPUT_CHECK.out.reads
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
+    // FASTP files
+    ch_adapter = params.fastp_adapter_fasta ? file(params.fastp_adapter_fasta) : null
+
+    // Kallisto files
+    ch_transcriptome = params.transcriptome ? file(params.transcriptome) : null
+    ch_index = params.index ? file(params.index) : null
+    ch_gtf = params.gtf ? file(params.gtf) : null
+
     //
     // MODULE: Run FastQC for raw reads
     //
@@ -97,8 +106,9 @@ workflow BULKRNA {
 
     QUANTIFICATION (
         ch_trimmed_reads,
-        params.transcriptome,
-        params.gtf,
+        ch_transcriptome,
+        ch_index,
+        ch_gtf,
         params.fragment_length,
         params.fragment_length_sd
     )
