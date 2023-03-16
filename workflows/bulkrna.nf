@@ -16,6 +16,7 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
+if (params.transcriptome == null && params.index == null) { exit 1, 'You must specify either a transcriptome fasta (--transcriptome) or a pre-built Kallisto index (--index)' }
 
 
 /*
@@ -98,6 +99,7 @@ workflow BULKRNA {
     QUANTIFICATION (
         ch_trimmed_reads,
         params.transcriptome,
+        params.index,
         params.gtf,
         params.fragment_length,
         params.fragment_length_sd

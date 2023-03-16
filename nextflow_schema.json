@@ -83,11 +83,15 @@
             "title": "Kallisto options",
             "type": "object",
             "description": "Options for the alignment/quantification",
-            "required": ["transcriptome"],
             "properties": {
                 "transcriptome": {
                     "type": "string",
-                    "description": "Path to the transcriptome FASTA file to use for reference"
+                    "description": "Path to the transcriptome FASTA file to use for reference",
+                    "default": null
+                },
+                "index": {
+                    "type": "string",
+                    "default": null
                 },
                 "fragment_length": {
                     "type": "integer",

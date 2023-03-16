@@ -7,6 +7,7 @@ workflow QUANTIFICATION {
     take:
         reads            // channel: [ val(meta), [ reads ] ]
         transcriptome
+        index
         gtf
         fragment_length
         fragment_length_sd
@@ -14,10 +15,14 @@ workflow QUANTIFICATION {
     main:
         ch_versions = Channel.empty()
 
-        KALLISTO_INDEX ( transcriptome )
+        if (params.index == null) {
+            KALLISTO_INDEX ( transcriptome )
+            KALLISTO_INDEX.out.idx.set { index }
+        }
+
         KALLISTO_QUANT (
             reads,
-            KALLISTO_INDEX.out.idx,
+            index,
             fragment_length,
             fragment_length_sd
         )
