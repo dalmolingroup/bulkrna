@@ -79,10 +79,13 @@ workflow BULKRNA {
     ch_raw_reads = INPUT_CHECK.out.reads
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
+    // FASTP files
+    ch_adapter = params.fastp_adapter_fasta ? file(params.fastp_adapter_fasta) : null
+
     // Kallisto files
-    ch_transcriptome = params.transcriptome ?: file(params.transcriptome)
-    ch_index = params.index ?: file(params.index)
-    ch_gtf = params.gtf ?: file(params.transcriptome)
+    ch_transcriptome = params.transcriptome ? file(params.transcriptome) : null
+    ch_index = params.index ? file(params.index) : null
+    ch_gtf = params.gtf ? file(params.transcriptome) : null
 
     //
     // MODULE: Run FastQC for raw reads
