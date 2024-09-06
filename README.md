@@ -3,6 +3,11 @@
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/BulkRNA_dark.png">
+  <img alt="BulkRNA logo" src="./assets/BulkRNA_light.png">
+</picture>
+
 ## Introduction
 
 **dalmolingroup/bulkrna** is an analysis pipeline for pre-processing, alignment and quantification of bulk RNA-Seq data.
