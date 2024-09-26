@@ -1,0 +1,16 @@
+site_name: BulkRNA
+site_description: Pre-processing, alignment and quantification of bulk RNA-seq data
+site_author: Dalmolin Group
+nav:
+  - Home: README.md
+  - Usage: usage.md
+  - Output: output.md
+  - Citations: CITATIONS.md
+  - Reference:
+      - Parameters: params.md
+repo_url: https://github.com/dalmolingroup/bulkrna
+theme:
+  name: "readthedocs"
+  logo: assets/BulkRNA_light.png
+plugins:
+  - search
