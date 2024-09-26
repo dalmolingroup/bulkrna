@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Dalmolin Group" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Output - BulkRNA</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Output";
+        var mkdocs_page_input_path = "output.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../assets/BulkRNA_light.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../usage/">Usage</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Output</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pipeline-overview">Pipeline overview</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#fastqc">FastQC</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fastp">fastp</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#kallisto">Kallisto</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tximport">TxImport</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#multiqc">MultiQC</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipeline-information">Pipeline information</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CITATIONS/">Citations</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../params/">Parameters</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">BulkRNA</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Output</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/dalmolingroup/bulkrna/edit/master/docs/output.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="dalmolingroupbulkrna-output">dalmolingroup/bulkrna: Output</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This document describes the output produced by the pipeline. Most of the plots are taken from the MultiQC report, which summarises results at the end of the pipeline.</p>
+<p>The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.</p>
+<h2 id="pipeline-overview">Pipeline overview</h2>
+<p>The pipeline is built using <a href="https://www.nextflow.io/">Nextflow</a> and processes data using the following steps:</p>
+<ul>
+<li><a href="#fastqc">FastQC</a> - Raw read QC</li>
+<li><a href="#fastp">fastp</a> - fastp reports (in HTML and JSON) about the trimming process</li>
+<li><a href="#fastqc">FastQC_trimmed</a> - Trimmed read QC - will be included in MultiQC results</li>
+<li><a href="#kallisto">Kallisto</a> - Kallisto quantification results</li>
+<li><a href="#tximport">TxImport</a> - Aggregate quantification results at gene and transcript levels</li>
+<li><a href="#multiqc">MultiQC</a> - Aggregate report describing results and QC from the whole pipeline</li>
+<li><a href="#pipeline-information">Pipeline information</a> - Report metrics generated during the workflow execution</li>
+</ul>
+<h3 id="fastqc">FastQC</h3>
+<details markdown="1">
+<summary>Output files</summary>
+
+- `fastqc/`
+  - `*_fastqc.html`: FastQC report containing quality metrics.
+  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
+
+</details>
+
+<p><a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a> gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/">FastQC help pages</a>.</p>
+<p><img alt="MultiQC - FastQC sequence counts plot" src="../images/mqc_fastqc_counts.png" /></p>
+<p><img alt="MultiQC - FastQC mean quality scores plot" src="../images/mqc_fastqc_quality.png" /></p>
+<p><img alt="MultiQC - FastQC adapter content plot" src="../images/mqc_fastqc_adapter.png" /></p>
+<blockquote>
+<p><strong>NB:</strong> The FastQC plots displayed in the MultiQC report shows <em>trimmed</em> reads (see <a href="#fastp">fastp</a>).</p>
+</blockquote>
+<h3 id="fastp">fastp</h3>
+<p><a href="https://github.com/OpenGene/fastp">fastp</a> is an ultra-fast all-in-one FASTQ preprocessor. Used in this workflow for adapter trimming and low-quality sequence
+removal.</p>
+<ul>
+<li><code>fastp</code></li>
+<li><code>*.html</code> - HTML report generated by fastp</li>
+<li><code>*.json</code> - JSON report generated by fastp</li>
+</ul>
+<h3 id="kallisto">Kallisto</h3>
+<p><a href="https://pachterlab.github.io/kallisto/manual"><code>kallisto</code></a> is used here
+for aligning and quantifying targets against a reference transcriptome.</p>
+<ul>
+<li><code>kallisto</code></li>
+<li><code>{sample_id}</code> - Abundances quantified from said sample</li>
+</ul>
+<h3 id="tximport">TxImport</h3>
+<p><a href="http://bioconductor.org/packages/release/bioc/html/tximport.html"><code>tximport</code></a> is used here
+to summarize transcript and gene-level counts from Kallisto.</p>
+<ul>
+<li><code>tximport</code></li>
+<li><code>gene_tpm.tsv</code> - Gene-level estimates (transcript-per-million) for the samples</li>
+<li><code>gene_counts.tsv</code> - Gene-level estimates (raw counts) for the samples</li>
+<li><code>transcript_tpm.tsv</code> - Transcript-level estimates (transcript-per-million) for the samples</li>
+<li><code>transcript_counts.tsv</code> - Transcript-level estimates (raw counts) for the samples</li>
+<li><code>transcript_scaled_tpm.tsv</code> - Transcript-level estimates (transcript-per-million) for the samples, scaled up to library size (scaledTPM)</li>
+<li><code>transcript_scaled_counts.tsv</code> - Transcript-level estimates (raw counts) for the samples, scaled up to library size (scaledTPM)</li>
+</ul>
+<h3 id="multiqc">MultiQC</h3>
+<details markdown="1">
+<summary>Output files</summary>
+
+- `multiqc/`
+  - `multiqc_report.html`: a standalone HTML file that can be viewed in your web browser.
+  - `multiqc_data/`: directory containing parsed statistics from the different tools used in the pipeline.
+  - `multiqc_plots/`: directory containing static images from the report in various formats.
+
+</details>
+
+<p><a href="http://multiqc.info">MultiQC</a> is a visualization tool that generates a single HTML report summarising all samples in your project. Most of the pipeline QC results are visualised in the report and further statistics are available in the report data directory.</p>
+<p>Results generated by MultiQC collate pipeline QC from supported tools e.g. FastQC. The pipeline has special steps which also allow the software versions to be reported in the MultiQC output for future traceability. For more information about how to use MultiQC reports, see <a href="http://multiqc.info">http://multiqc.info</a>.</p>
+<h3 id="pipeline-information">Pipeline information</h3>
+<details markdown="1">
+<summary>Output files</summary>
+
+- `pipeline_info/`
+  - Reports generated by Nextflow: `execution_report.html`, `execution_timeline.html`, `execution_trace.txt` and `pipeline_dag.dot`/`pipeline_dag.svg`.
+  - Reports generated by the pipeline: `pipeline_report.html`, `pipeline_report.txt` and `software_versions.yml`. The `pipeline_report*` files will only be present if the `--email` / `--email_on_fail` parameter's are used when running the pipeline.
+  - Reformatted samplesheet files used as input to the pipeline: `samplesheet.valid.csv`.
+
+</details>
+
+<p><a href="https://www.nextflow.io/docs/latest/tracing.html">Nextflow</a> provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../usage/" class="btn btn-neutral float-left" title="Usage"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../CITATIONS/" class="btn btn-neutral float-right" title="Citations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/dalmolingroup/bulkrna" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../usage/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../CITATIONS/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
