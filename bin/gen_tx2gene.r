@@ -26,6 +26,9 @@ txdf <- AnnotationDbi::select(
 tab <- table(txdf$GENEID)
 txdf$ntx <- tab[match(txdf$GENEID, names(tab))]
 
+txdf$TXNAME <- gsub("\\..*", "",  txdf$TXNAME)
+txdf$GENEID <- gsub("\\..*", "",  txdf$GENEID)
+
 tx2gene <- data.frame(
     tx = txdf$TXNAME,
     gene = txdf$GENEID

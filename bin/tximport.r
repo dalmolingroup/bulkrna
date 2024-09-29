@@ -20,6 +20,7 @@ txi_gene <- tximport(
     type = "kallisto",
     tx2gene = tx2gene,
     ignoreTxVersion = TRUE,
+    ignoreAfterBar = TRUE,
     dropInfReps=TRUE
 )
 
@@ -28,6 +29,7 @@ txi_tx <- tximport(
     type = "kallisto",
     txOut = TRUE,
     ignoreTxVersion = TRUE,
+    ignoreAfterBar = TRUE,
     dropInfReps=TRUE
 )
 
@@ -37,6 +39,7 @@ txi_tx_scaled <- tximport(
     txOut = TRUE,
     countsFromAbundance = "scaledTPM",
     ignoreTxVersion = TRUE,
+    ignoreAfterBar = TRUE,
     dropInfReps=TRUE
 )
 
